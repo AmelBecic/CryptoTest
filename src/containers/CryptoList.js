@@ -5,6 +5,7 @@ import classes from './CryptoList.module.css';
 
 import CryptoItem from '../components/CryptoItem/CryptoItem';
 import Modal from '../components/Modal/Modal';
+import DetailedCrypto from '../components/DetailedCrypto/DetailedCrypto';
 
 const CryptoList = ({cryptoList , fetchedCrypto}) => {
 
@@ -23,7 +24,7 @@ const CryptoList = ({cryptoList , fetchedCrypto}) => {
                 })}
 
                 <Modal>
-                    <p>Hello there</p>
+                    <DetailedCrypto />
                 </Modal>
                 <CryptoItem />
                 <CryptoItem />
