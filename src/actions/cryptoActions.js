@@ -22,14 +22,31 @@ const fetchCryptoFailure = error => {
     }
 }
 
+export const selectCrypto = () => {
+    return {
+        type: 'SELECT_CRYPTO' , 
+        
+    }
+}
+
+export const cancelCrypto = () => {
+    return {
+        type: 'CANCEL_CRYPTO'
+    }
+}
 
 export const fetchCrypto = () => {
 
     return (dispatch) => {
         dispatch(fetchCryptoRequest);
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        let url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
+        let apiKey = "67b3c734-6fa1-4f3a-91e8-86e829bc3542";
+        let qString = "?CMC_PRO_API_KEY=" + apiKey + "&start=1&limit=5&convert=USD";
+
+        axios.get("https://jsonplaceholder.typicode.com/users")
             .then( response => {
                 const cryptoData = response.data;
+                console.log(cryptoData);
                 dispatch(fetchCryptoSucces(cryptoData));
             })
             .catch( error => {

@@ -1,36 +1,33 @@
 import React , {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {fetchCrypto} from '../actions/cryptoActions';
+import {cancelCrypto, fetchCrypto, selectCrypto} from '../actions/cryptoActions';
 import classes from './CryptoList.module.css';
 
 import CryptoItem from '../components/CryptoItem/CryptoItem';
 import Modal from '../components/Modal/Modal';
 import DetailedCrypto from '../components/DetailedCrypto/DetailedCrypto';
 
-const CryptoList = ({cryptoList , fetchedCrypto}) => {
+const CryptoList = ({cryptoList , fetchedCrypto , clickCrypto , closeCrypto}) => {
 
         useEffect(() => {
-            fetchedCrypto()
+            fetchedCrypto();
+            console.log(cryptoList.cryptoClicked)
         } , [])
 
     
 
         return (
             <div>
+
+                <Modal show={cryptoList.cryptoClicked} modalClosed={closeCrypto}>
+                    <DetailedCrypto />
+                </Modal>
     
                 <h1 className={classes.title}>Crypto Currency list</h1>
                 {cryptoList.cryptoData.map(crypto => {
-                    return (<p>{crypto.name}</p>)
+                    return (<CryptoItem clicked={clickCrypto} id={crypto.id} name={crypto.name} email={crypto.email} city={crypto.address.city} />)
                 })}
 
-                <Modal>
-                    <DetailedCrypto />
-                </Modal>
-                <CryptoItem />
-                <CryptoItem />
-                <CryptoItem />
-                <CryptoItem />
-                <CryptoItem />
     
     
             </div>
@@ -46,7 +43,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchedCrypto: () => dispatch(fetchCrypto())
+        fetchedCrypto: () => dispatch(fetchCrypto()) ,
+        clickCrypto: () => dispatch(selectCrypto()) ,
+        closeCrypto: () => dispatch(cancelCrypto())
     }
 }
 

@@ -4,7 +4,10 @@ const initialState = {
 
     loading : true ,
     cryptoData: [] ,
-    error: ''
+    error: '' ,
+    cryptoClicked: false , 
+    id: '' ,
+    ime: 'amel'
 
 }
 
@@ -28,6 +31,16 @@ const reducer = (state= initialState , action) => {
             cryptoData: [] ,
             error: action.payload ,
         }
+        case 'SELECT_CRYPTO' :
+        return {
+            ...state ,
+            cryptoClicked: true
+        }
+        case 'CANCEL_CRYPTO' :
+        return {
+            ...state ,
+            cryptoClicked: false
+            }
         default:
             return state;
     }

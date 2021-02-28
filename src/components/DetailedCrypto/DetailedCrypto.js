@@ -1,15 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 
-const DetailedCrypto = () => {
+const DetailedCrypto = ({cryptoData}) => {
 
 
 
     return (
         <div>
 
-            <p>Hello there</p>
-            <p>This is test for detailed crypto</p>
+            <p>{cryptoData.ime}</p>
+            <p>Price:</p>
+            <ul>
+                <li>USD</li>
+                <li>EUR</li>
+                <li>CNY</li>
+            </ul>
+            <p>Market cap</p>
+            <p>Daily volume</p>
+            <p>Other info</p>
 
         </div>
     )
@@ -18,5 +27,11 @@ const DetailedCrypto = () => {
 
 }
 
+const mapStateToProps = state => {
+    return {
+        cryptoData: state.fetching
+    }
+}
 
-export default DetailedCrypto;
+
+export default connect(mapStateToProps)(DetailedCrypto);
