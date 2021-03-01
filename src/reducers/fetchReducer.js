@@ -22,6 +22,7 @@ const reducer = (state= initialState , action) => {
         }
         case 'FETCH_CRYPTO_SUCCESS' : 
         return {
+            ...state ,
             loading: false ,
             cryptoData: action.payload , 
             error: '' ,
@@ -30,6 +31,7 @@ const reducer = (state= initialState , action) => {
         }
         case 'FETCH_CRYPTO_FAILURE' :
         return {
+            ...state ,
             loading: false ,
             cryptoData: [] ,
             error: action.payload ,
