@@ -23,9 +23,9 @@ const CryptoList = ({cryptoList , fetchedCrypto , clickCrypto , closeCrypto}) =>
                     <DetailedCrypto />
                 </Modal>
     
-                <h1 className={classes.title}>Crypto Currency list</h1>
+                <h1 className={classes.title}>Top 100 list</h1>
                 {cryptoList.cryptoData.map(crypto => {
-                    return (<CryptoItem clicked={clickCrypto} id={crypto.id} name={crypto.name} email={crypto.email} city={crypto.address.city} />)
+                    return (<CryptoItem currency={cryptoList.currency} clicked={clickCrypto} id={crypto.id} name={crypto.name} email={crypto.email} city={crypto.address.city} />)
                 })}
 
     
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchedCrypto: () => dispatch(fetchCrypto()) ,
-        clickCrypto: () => dispatch(selectCrypto()) ,
+        clickCrypto: (id) => dispatch(selectCrypto(id)) ,
         closeCrypto: () => dispatch(cancelCrypto())
     }
 }

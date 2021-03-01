@@ -22,9 +22,10 @@ const fetchCryptoFailure = error => {
     }
 }
 
-export const selectCrypto = () => {
+export const selectCrypto = (value) => {
     return {
-        type: 'SELECT_CRYPTO' , 
+        type: 'SELECT_CRYPTO' ,
+        payload: value
         
     }
 }
@@ -32,6 +33,13 @@ export const selectCrypto = () => {
 export const cancelCrypto = () => {
     return {
         type: 'CANCEL_CRYPTO'
+    }
+}
+
+export const selectCurr = (curr) => {
+    return {
+        type: 'SELECT_CURRENCY' ,
+        payload: curr
     }
 }
 

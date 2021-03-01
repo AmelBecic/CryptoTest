@@ -2,14 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 
-const DetailedCrypto = ({cryptoData}) => {
+const DetailedCrypto = ({ide , cryptoInfo}) => {
 
 
-
+    console.log(cryptoInfo);
+    console.log(ide);
+    let number = ide-1;
     return (
         <div>
 
-            <p>{cryptoData.ime}</p>
+            <p>CLICKED ID: {ide}</p>
             <p>Price:</p>
             <ul>
                 <li>USD</li>
@@ -29,7 +31,8 @@ const DetailedCrypto = ({cryptoData}) => {
 
 const mapStateToProps = state => {
     return {
-        cryptoData: state.fetching
+        cryptoInfo: state.fetching.cryptoData ,
+        ide: state.fetching.id
     }
 }
 
