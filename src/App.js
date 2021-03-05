@@ -6,7 +6,7 @@ import {BrowserRouter as Router , Switch , Route} from 'react-router-dom';
 const App =() => {
   return (
     <div>
-
+      {alert("for testing functionalities i used json placeholder since i have problems with coinmarket api key")}
       <Router>
 
           <Navigation />
