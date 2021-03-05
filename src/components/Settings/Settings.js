@@ -12,9 +12,9 @@ const Settings = ({data , selectCurrency}) => {
         <div>
             <p>Select a currency</p>
             <ul>
-                <li><button onClick={() => selectCurrency('USD')} className={classes.button}>USD</button></li>
-                <li><button onClick={() => selectCurrency('EUR')} className={classes.button}>EUR</button></li>
-                <li><button onClick={() => selectCurrency('CNY')} className={classes.button}>CNY</button></li>
+                <li><button onClick={() => {selectCurrency('USD'); alert("Price on top 100 will be in USD")}} className={classes.button}>USD</button></li>
+                <li><button onClick={() => {selectCurrency('EUR'); alert("Price on top 100 will be in EUR") }} className={classes.button}>EUR</button></li>
+                <li><button onClick={() => {selectCurrency('CNY'); alert("Price on top 100 will be in CNY")}} className={classes.button}>CNY</button></li>
             </ul>
         </div>
     )
