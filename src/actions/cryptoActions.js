@@ -43,18 +43,15 @@ export const selectCurr = (curr) => {
     }
 }
 
-export const fetchCrypto = () => {
+export const fetchCrypto =  (currency) => {
 
     return (dispatch) => {
         dispatch(fetchCryptoRequest);
-        let url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-        let apiKey = "67b3c734-6fa1-4f3a-91e8-86e829bc3542";
-        let qString = "?CMC_PRO_API_KEY=" + apiKey + "&start=1&limit=5&convert=USD";
+        
 
-        axios.get("https://jsonplaceholder.typicode.com/users")
+         axios.get(`https://cryptocurrency-list.herokuapp.com/cryptocurrency${currency}`)
             .then( response => {
                 const cryptoData = response.data;
-                console.log(cryptoData);
                 dispatch(fetchCryptoSucces(cryptoData));
             })
             .catch( error => {

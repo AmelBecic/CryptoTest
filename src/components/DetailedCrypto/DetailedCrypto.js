@@ -1,21 +1,58 @@
-import React from 'react';
+import React, {useState , useEffect} from 'react';
 import {connect} from 'react-redux';
+import classes from './DetailedCrypto.module.css';
 
 
 const DetailedCrypto = ({ide , cryptoInfo , currency}) => {
 
-
-    console.log(cryptoInfo);
-    console.log(ide);
+    const [singleCrypto , setSingleCrypto] = useState( {name: 'None' , dailyVolume: ' ' , marketCap: '' , otherInfo: '' , maxSupp: ''} )
     
-    return (
-        <div>
+    useEffect(() => {
+        cryptoInfo.map(crypto => {
+            if(crypto.id === ide){
+                let marketCapp='Demo';
+                let volume = 'demo';
+                    if(currency === 'USD') {
+                        marketCapp= Number.parseFloat(crypto.quote.USD.market_cap.toString()).toFixed(3);
+                        volume= Number.parseFloat(crypto.quote.USD.percent_change_24h.toString()).toFixed(3);
+                    }
+                    if(currency === 'EUR') {
+                        marketCapp= Number.parseFloat(crypto.quote.EUR.market_cap.toString()).toFixed(3);
+                        volume= Number.parseFloat(crypto.quote.EUR.percent_change_24h.toString()).toFixed(3);
+                    }
+                    if(currency === 'CNY') {
+                        marketCapp= Number.parseFloat(crypto.quote.CNY.market_cap.toString()).toFixed(3);
+                        volume= Number.parseFloat(crypto.quote.CNY.percent_change_24h.toString()).toFixed(3);
+                    }
+                 setSingleCrypto({name: crypto.name , 
+                                 marketCap: marketCapp , 
+                                 dailyVolume: volume , 
+                                otherInfo: crypto.total_supply , 
+                                maxSupp: crypto.max_supply})
+                                
+            }
+        })
+    } , [cryptoInfo , ide , currency])
 
-            <p>CLICKED ID: {ide}</p>
-            <p>Price set in settings: {currency}</p>
-            <p>Market cap: To be added after solving api</p>
-            <p>Daily volume: To be added after solving api</p>
-            <p>Other info: To be added after solving api</p>
+    let volumeStyle= {
+        color: 'green' ,
+        display: 'inline'
+    }
+    if(singleCrypto.dailyVolume < 0) {
+        volumeStyle = {
+            color: 'red'  ,
+            display: 'inline'
+        }
+    }
+    return (
+        <div className={classes.detailed}>
+
+            <p className={classes.item}> {singleCrypto.name} </p>
+            <p className={classes.item}>ID:  {ide}</p>
+            <p className={classes.item}>Market cap: {singleCrypto.marketCap} {currency}</p>
+            <p className={classes.item}>Daily volume: <p style={volumeStyle}>{singleCrypto.dailyVolume} %</p></p>
+            <p className={classes.item}>Total supply: {singleCrypto.otherInfo}</p>
+            <p className={classes.item}>Max supply: {singleCrypto.maxSupp} </p>
 
         </div>
     )

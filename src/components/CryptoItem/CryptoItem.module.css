@@ -1,13 +1,28 @@
 .CryptoItem {
 
-    height: 35px;
-    width: 80%;
+    height: 50px;
+    width: 90%;
     border: 1px solid black;
     display: flex;
     margin: auto;
     padding: 5px;
+    border-radius: 15px;
+    margin-top: 10px;
+    font-size: 15px;
+    background-color: #B2D2C8;
+}
+
+.CryptoItem:hover {
+    background-color: #2A61C5;
+    color: white;
+    
 }
 
 .Feature {
     margin: auto;
+}
+
+.currency {
+    font-weight: bold ;
+    display: inline;
 }

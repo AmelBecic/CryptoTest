@@ -1,21 +1,26 @@
-import React from 'react';
+import React , {useState} from 'react';
+import {Button } from 'react-bootstrap';
 import classes from './Settings.module.css';
 import {connect} from 'react-redux';
-import {selectCurr} from '../../actions/cryptoActions';
+import {selectCurr , fetchCrypto} from '../../actions/cryptoActions';
 
 
-const Settings = ({data , selectCurrency}) => {
+const Settings = ({data , selectCurrency , fetchedCrypto}) => {
 
-
-    console.log(data.currency);
+    const [submited , handleSubmit] = useState(false);
+    
     return (
-        <div>
-            <p>Select a currency</p>
-            <ul>
-                <li><button onClick={() => {selectCurrency('USD'); alert("Price on top 100 will be in USD")}} className={classes.button}>USD</button></li>
-                <li><button onClick={() => {selectCurrency('EUR'); alert("Price on top 100 will be in EUR") }} className={classes.button}>EUR</button></li>
-                <li><button onClick={() => {selectCurrency('CNY'); alert("Price on top 100 will be in CNY")}} className={classes.button}>CNY</button></li>
+        <div className={classes.settings}>
+            <h2>Current currency: {data.currency} </h2>
+            <h2>Click on wanted currency and submit to change</h2>
+            <ul className={classes.ul}>
+                <li className={classes.li}><button onClick={() => {selectCurrency('USD'); handleSubmit(true); }} className={classes.button}>USD</button></li>
+                <li className={classes.li}><button onClick={() => {selectCurrency('EUR'); handleSubmit(true);  }} className={classes.button}>EUR</button></li>
+                <li className={classes.li}><button onClick={() => {selectCurrency('CNY'); handleSubmit(true); }} className={classes.button}>CNY</button></li>
+                
             </ul>
+            <button className={classes.change} onClick={() => {fetchedCrypto(data.currency); handleSubmit(false); }}>SUBMIT</button>
+            {submited && <h2 className={classes.submit}> Not submited yet </h2>}
         </div>
     )
 
@@ -27,7 +32,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        selectCurrency: (id) => dispatch(selectCurr(id)) 
+        fetchedCrypto: (curr) => dispatch(fetchCrypto(curr)),
+        selectCurrency: (id) => dispatch(selectCurr(id))  
+        
     }
 }
 
