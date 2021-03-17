@@ -6,10 +6,24 @@ export const fetchCryptoRequest = () => {
     }
 }
 
-const fetchCryptoSucces = crypto => {
+const fetchCryptoUSD = crypto => {
 
     return {
-        type: 'FETCH_CRYPTO_SUCCESS' ,
+        type: 'FETCH_CRYPTO_USD' ,
+        payload: crypto
+    }
+}
+const fetchCryptoCNY = crypto => {
+
+    return {
+        type: 'FETCH_CRYPTO_CNY' ,
+        payload: crypto
+    }
+}
+const fetchCryptoEUR = crypto => {
+
+    return {
+        type: 'FETCH_CRYPTO_EUR' ,
         payload: crypto
     }
 }
@@ -43,21 +57,26 @@ export const selectCurr = (curr) => {
     }
 }
 
-export const fetchCrypto =  (currency) => {
+export const fetchCrypto =  (currency) =>  {
 
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(fetchCryptoRequest);
         
 
-         axios.get(`https://cryptocurrency-list.herokuapp.com/cryptocurrency${currency}`)
-            .then( response => {
-                const cryptoData = response.data;
-                dispatch(fetchCryptoSucces(cryptoData));
-            })
-            .catch( error => {
-                const errorMsg = error.message;
-                dispatch(fetchCryptoFailure(errorMsg));
-            })
+         let resUSD = await axios.get(`https://cryptocurrency-list.herokuapp.com/cryptocurrencyUSD`);
+         let dataUSD = resUSD.data;
+         console.log(dataUSD);
+         dispatch(fetchCryptoUSD(dataUSD));
+
+         let resEUR = await axios.get(`https://cryptocurrency-list.herokuapp.com/cryptocurrencyEUR`);
+         let dataEUR = resEUR.data;
+         console.log(dataEUR);
+         dispatch(fetchCryptoEUR(dataEUR));
+
+         let resCNY = await axios.get(`https://cryptocurrency-list.herokuapp.com/cryptocurrencyCNY`);
+         let dataCNY = resCNY.data;
+         console.log(dataCNY);
+         dispatch(fetchCryptoCNY(dataCNY));
     }
 
 

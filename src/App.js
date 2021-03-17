@@ -1,10 +1,21 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import CryptoList from './containers/CryptoList';
 import Navigation from './components/Navigation/Navigation';
 import Settings from './components/Settings/Settings';
+import {connect} from 'react-redux';
+import {fetchCrypto} from './actions/cryptoActions';
 import {BrowserRouter as Router , Switch , Route} from 'react-router-dom';
-const App =() => {
+import FormImpl from 'react-bootstrap/esm/Form';
+const App =({fetchedCrypto , selectedCurrency}) => {
+
+
+  useEffect(() => {
+    
+    fetchedCrypto(selectedCurrency);
+    
+  }, [])
+
   return (
     <div>
       
@@ -24,4 +35,16 @@ const App =() => {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      cryptoList: state.fetching ,
+      selectedCurrency: state.fetching.currency
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      fetchedCrypto: (curr) => dispatch(fetchCrypto(curr))
+  }
+}
+
+export default connect(mapStateToProps , mapDispatchToProps)(App);

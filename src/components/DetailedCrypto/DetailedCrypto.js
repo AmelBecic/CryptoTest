@@ -8,30 +8,48 @@ const DetailedCrypto = ({ide , cryptoInfo , currency}) => {
     const [singleCrypto , setSingleCrypto] = useState( {name: 'None' , dailyVolume: ' ' , marketCap: '' , otherInfo: '' , maxSupp: ''} )
     
     useEffect(() => {
-        cryptoInfo.map(crypto => {
-            if(crypto.id === ide){
-                let marketCapp='Demo';
-                let volume = 'demo';
-                    if(currency === 'USD') {
-                        marketCapp= Number.parseFloat(crypto.quote.USD.market_cap.toString()).toFixed(3);
-                        volume= Number.parseFloat(crypto.quote.USD.percent_change_24h.toString()).toFixed(3);
-                    }
-                    if(currency === 'EUR') {
-                        marketCapp= Number.parseFloat(crypto.quote.EUR.market_cap.toString()).toFixed(3);
-                        volume= Number.parseFloat(crypto.quote.EUR.percent_change_24h.toString()).toFixed(3);
-                    }
-                    if(currency === 'CNY') {
-                        marketCapp= Number.parseFloat(crypto.quote.CNY.market_cap.toString()).toFixed(3);
-                        volume= Number.parseFloat(crypto.quote.CNY.percent_change_24h.toString()).toFixed(3);
-                    }
-                 setSingleCrypto({name: crypto.name , 
-                                 marketCap: marketCapp , 
-                                 dailyVolume: volume , 
-                                otherInfo: crypto.total_supply , 
-                                maxSupp: crypto.max_supply})
-                                
-            }
-        })
+        if (currency === 'USD') {
+            cryptoInfo.cryptoDataUSD.map(crypto => {
+                if(crypto.id === ide) {
+                    let marketCapp=Number.parseFloat(crypto.quote.USD.market_cap.toString()).toFixed(3);;
+                    let volume = Number.parseFloat(crypto.quote.USD.percent_change_24h.toString()).toFixed(3);
+                    setSingleCrypto({name: crypto.name , 
+                        marketCap: marketCapp , 
+                        dailyVolume: volume , 
+                       otherInfo: crypto.total_supply , 
+                       maxSupp: crypto.max_supply})
+                }
+            })
+        }
+        if (currency === 'EUR') {
+            cryptoInfo.cryptoDataEUR.map(crypto => {
+                if(crypto.id === ide) {
+                    let marketCapp=Number.parseFloat(crypto.quote.EUR.market_cap.toString()).toFixed(3);;
+                    let volume = Number.parseFloat(crypto.quote.EUR.percent_change_24h.toString()).toFixed(3);
+                    setSingleCrypto({name: crypto.name , 
+                        marketCap: marketCapp , 
+                        dailyVolume: volume , 
+                       otherInfo: crypto.total_supply , 
+                       maxSupp: crypto.max_supply})
+                }
+            })
+        }
+        if (currency === 'CNY') {
+            cryptoInfo.cryptoDataCNY.map(crypto => {
+                if(crypto.id === ide) {
+                    let marketCapp=Number.parseFloat(crypto.quote.CNY.market_cap.toString()).toFixed(3);;
+                    let volume = Number.parseFloat(crypto.quote.CNY.percent_change_24h.toString()).toFixed(3);
+                    setSingleCrypto({name: crypto.name , 
+                        marketCap: marketCapp , 
+                        dailyVolume: volume , 
+                       otherInfo: crypto.total_supply , 
+                       maxSupp: crypto.max_supply})
+                }
+            })
+        }
+
+        
+        
     } , [cryptoInfo , ide , currency])
 
     let volumeStyle= {
@@ -63,7 +81,7 @@ const DetailedCrypto = ({ide , cryptoInfo , currency}) => {
 
 const mapStateToProps = state => {
     return {
-        cryptoInfo: state.fetching.cryptoData ,
+        cryptoInfo: state.fetching ,
         ide: state.fetching.id ,
         currency: state.fetching.currency
     }

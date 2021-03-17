@@ -3,11 +3,13 @@ import { bindActionCreators } from "redux";
 const initialState = {
 
     loading : true ,
-    cryptoData: [] ,
+    cryptoDataUSD: [] ,
+    cryptoDataEUR: [] ,
+    cryptoDataCNY: [] ,
     error: '' ,
     cryptoClicked: false , 
     id: 0 ,
-    currency: 'USD'
+    currency: 'EUR'
     
 
 }
@@ -20,11 +22,29 @@ const reducer = (state= initialState , action) => {
             ...state , 
             loading: true
         }
-        case 'FETCH_CRYPTO_SUCCESS' : 
+        case 'FETCH_CRYPTO_USD' : 
         return {
             ...state ,
             loading: false ,
-            cryptoData: action.payload , 
+            cryptoDataUSD: action.payload , 
+            error: '' ,
+            id: 0
+            
+        }
+        case 'FETCH_CRYPTO_EUR' : 
+        return {
+            ...state ,
+            loading: false ,
+            cryptoDataEUR: action.payload , 
+            error: '' ,
+            id: 0
+            
+        }
+        case 'FETCH_CRYPTO_CNY' : 
+        return {
+            ...state ,
+            loading: false ,
+            cryptoDataCNY: action.payload , 
             error: '' ,
             id: 0
             

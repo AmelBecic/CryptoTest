@@ -11,10 +11,39 @@ const CryptoList = ({cryptoList , fetchedCrypto , clickCrypto , closeCrypto , se
 
         useEffect(() => {
             
-            fetchedCrypto(selectedCurrency);
+            
             
         } , [])
 
+        console.log(selectedCurrency);
+
+        let spinner = <h1>LOADING ...</h1>
+
+        if (selectedCurrency === 'USD') {
+            spinner = cryptoList.cryptoDataUSD.map(crypto => {
+                let setCurrency = Number.parseFloat(crypto.quote.USD.price.toString()).toFixed(3);
+                return (<CryptoItem key={crypto.id} curr={selectedCurrency} price={setCurrency} symbol={crypto.symbol} clicked={clickCrypto} id={crypto.id} name={crypto.name} />)
+            })
+        }
+        
+        if (selectedCurrency === 'EUR') {
+            spinner = cryptoList.cryptoDataEUR.map(crypto => {
+                let setCurrency = Number.parseFloat(crypto.quote.EUR.price.toString()).toFixed(3);
+                return (<CryptoItem key={crypto.id} curr={selectedCurrency} price={setCurrency} symbol={crypto.symbol} clicked={clickCrypto} id={crypto.id} name={crypto.name} />)
+            })
+        }
+        
+        if (selectedCurrency === 'CNY') {
+            spinner = cryptoList.cryptoDataCNY.map(crypto => {
+                let setCurrency = Number.parseFloat(crypto.quote.CNY.price.toString()).toFixed(3);
+                return (<CryptoItem key={crypto.id} curr={selectedCurrency} price={setCurrency} symbol={crypto.symbol} clicked={clickCrypto} id={crypto.id} name={crypto.name} />)
+            })
+        }
+
+        
+        console.log(cryptoList.cryptoDataCNY);
+        console.log(cryptoList.cryptoDataEUR);
+        console.log(cryptoList.cryptoDataUSD);
         
 
         return (
@@ -24,22 +53,9 @@ const CryptoList = ({cryptoList , fetchedCrypto , clickCrypto , closeCrypto , se
                     <DetailedCrypto />
                 </Modal>
     
-                <h1 className={classes.title}>Top 100 list</h1>
-                {cryptoList.cryptoData.map(crypto => {
-                    // ovde bi trebao rjesiti vrjednost za price pa je onda ubaciti dole
-                    let setCurrency='Demo';
-                    if(selectedCurrency === 'USD') {
-                        setCurrency= Number.parseFloat(crypto.quote.USD.price.toString()).toFixed(3);
-                    }
-                    if(selectedCurrency === 'EUR') {
-                        setCurrency= Number.parseFloat(crypto.quote.EUR.price.toString()).toFixed(3);
-                    }
-                    if(selectedCurrency === 'CNY') {
-                        setCurrency= Number.parseFloat(crypto.quote.CNY.price.toString()).toFixed(3);
-                    }
-                    return (<CryptoItem key={crypto.id} curr={selectedCurrency} price={setCurrency} symbol={crypto.symbol} clicked={clickCrypto} id={crypto.id} name={crypto.name} />)
-                })}
-
+                <h1 className={classes.title}>Top 100 list: </h1>
+                
+                {spinner}
     
     
             </div>

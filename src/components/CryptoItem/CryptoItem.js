@@ -19,7 +19,7 @@ const CryptoItem = (props) => {
             <Col className={classes.currency}>{props.name}</Col>
             <Col className={classes.currency}>{props.symbol}</Col>
             <Col className={classes.currency}>ID: {props.id}</Col>
-            <Col>Price : {props.price} <p className={classes.currency}>{curr}</p> </Col>
+            <Col >Price : {props.price} <p className={classes.currency}>{curr}</p> </Col>
         </Row>
         
     )
